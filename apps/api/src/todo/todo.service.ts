@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTodoDto } from './dto/create-todo.dto';
-import { UpdateTodoDto } from './dto/update-todo.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { Repository } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
+
+import { Todo } from './entities/todo.entity';
+
 
 @Injectable()
 export class TodoService {
-  create(createTodoDto: CreateTodoDto) {
-    return 'This action adds a new todo';
+  constructor(@InjectRepository(Todo) private todo: Repository<Todo>) { }
+
+  findOne(id: string): Promise<Todo> {
+    return this.todo.findOne(id);
   }
 
-  findAll() {
-    return `This action returns all todo`;
+  findAll(): Promise<Todo[]> {
+    return this.todo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} todo`;
+  create(todo: Todo): Promise<Todo> {
+    return this.todo.save((todo.id = uuidv4(), todo));
   }
 
-  update(id: number, updateTodoDto: UpdateTodoDto) {
-    return `This action updates a #${id} todo`;
+  async update(id: string, todo: Todo): Promise<Todo> {
+    await this.todo.update(id, todo);
+
+    return todo;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} todo`;
+  async remove(id: string): Promise<void> {
+    await this.todo.delete(id);
   }
 }

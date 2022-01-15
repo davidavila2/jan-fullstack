@@ -8,7 +8,7 @@ import { readFirst } from '@nrwl/angular/testing';
 import * as TodosActions from './todos.actions';
 import { TodosEffects } from './todos.effects';
 import { TodosFacade } from './todos.facade';
-import { TodosEntity } from './todos.models';
+import { Todo } from '@jan-fullstack/api-interfaces';
 import {
   TODOS_FEATURE_KEY,
   State,
@@ -24,10 +24,10 @@ interface TestSchema {
 describe('TodosFacade', () => {
   let facade: TodosFacade;
   let store: Store<TestSchema>;
-  const createTodosEntity = (id: string, name = ''): TodosEntity => ({
+  const createTodo = (id: string, name = ''): Todo => ({
     id,
-    name: name || `name-${id}`,
-  });
+    title: name || `name-${id}`,
+  } as Todo);
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -38,7 +38,7 @@ describe('TodosFacade', () => {
         ],
         providers: [TodosFacade],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -48,7 +48,7 @@ describe('TodosFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -86,7 +86,7 @@ describe('TodosFacade', () => {
 
       store.dispatch(
         TodosActions.loadTodosSuccess({
-          todos: [createTodosEntity('AAA'), createTodosEntity('BBB')],
+          todos: [createTodo('AAA'), createTodo('BBB')],
         })
       );
 

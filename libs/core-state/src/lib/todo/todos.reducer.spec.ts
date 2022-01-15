@@ -1,20 +1,20 @@
 import { Action } from '@ngrx/store';
 
 import * as TodosActions from './todos.actions';
-import { TodosEntity } from './todos.models';
+import { Todo } from '@jan-fullstack/api-interfaces';
 import { State, initialState, reducer } from './todos.reducer';
 
 describe('Todos Reducer', () => {
-  const createTodosEntity = (id: string, name = ''): TodosEntity => ({
+  const createTodo = (id: string, name = ''): Todo => ({
     id,
-    name: name || `name-${id}`,
-  });
+    title: name || `name-${id}`,
+  } as Todo);
 
   describe('valid Todos actions', () => {
     it('loadTodosSuccess should return the list of known Todos', () => {
       const todos = [
-        createTodosEntity('PRODUCT-AAA'),
-        createTodosEntity('PRODUCT-zzz'),
+        createTodo('PRODUCT-AAA'),
+        createTodo('PRODUCT-zzz'),
       ];
       const action = TodosActions.loadTodosSuccess({ todos });
 

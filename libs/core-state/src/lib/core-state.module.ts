@@ -6,7 +6,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import * as fromTodos from './todo/todos.reducer';
 import { TodosEffects } from './todo/todos.effects';
 import { TodosFacade } from './todo/todos.facade';
-import { NxModule } from '@nrwl/angular';
+import { DataPersistence, NxModule } from '@nrwl/angular';
 
 @NgModule({
   imports: [
@@ -17,6 +17,6 @@ import { NxModule } from '@nrwl/angular';
     StoreModule.forFeature(fromTodos.TODOS_FEATURE_KEY, fromTodos.reducer),
     StoreDevtoolsModule.instrument({ maxAge: 25, name: 'Todos' }),
   ],
-  providers: [TodosFacade],
+  providers: [TodosFacade, DataPersistence],
 })
 export class CoreStateModule { }

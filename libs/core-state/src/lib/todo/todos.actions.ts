@@ -1,11 +1,11 @@
 import { createAction, props } from '@ngrx/store';
-import { TodosEntity } from './todos.models';
+import { Todo } from '@jan-fullstack/api-interfaces';
 
 export const init = createAction('[Todos Page] Init');
 
 export const loadTodosSuccess = createAction(
   '[Todos/API] Load Todos Success',
-  props<{ todos: TodosEntity[] }>()
+  props<{ todos: Todo[] }>()
 );
 
 export const loadTodosFailure = createAction(

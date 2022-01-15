@@ -1,15 +1,15 @@
-import { TodosEntity } from './todos.models';
+import { Todo } from '@jan-fullstack/api-interfaces';
 import { todosAdapter, TodosPartialState, initialState } from './todos.reducer';
 import * as TodosSelectors from './todos.selectors';
 
 describe('Todos Selectors', () => {
   const ERROR_MSG = 'No Error Available';
-  const getTodosId = (it: TodosEntity) => it.id;
-  const createTodosEntity = (id: string, name = '') =>
-    ({
-      id,
-      name: name || `name-${id}`,
-    } as TodosEntity);
+  const getTodosId = (it: Todo) => it.id;
+  const createTodo = (id: string, name = '') =>
+  ({
+    id,
+    title: name || `name-${id}`,
+  } as Todo);
 
   let state: TodosPartialState;
 
@@ -17,9 +17,9 @@ describe('Todos Selectors', () => {
     state = {
       todos: todosAdapter.setAll(
         [
-          createTodosEntity('PRODUCT-AAA'),
-          createTodosEntity('PRODUCT-BBB'),
-          createTodosEntity('PRODUCT-CCC'),
+          createTodo('PRODUCT-AAA'),
+          createTodo('PRODUCT-BBB'),
+          createTodo('PRODUCT-CCC'),
         ],
         {
           ...initialState,
@@ -41,7 +41,7 @@ describe('Todos Selectors', () => {
     });
 
     it('getSelected() should return the selected Entity', () => {
-      const result = TodosSelectors.getSelected(state) as TodosEntity;
+      const result = TodosSelectors.getSelected(state) as Todo;
       const selId = getTodosId(result);
 
       expect(selId).toBe('PRODUCT-BBB');

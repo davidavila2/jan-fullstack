@@ -8,7 +8,8 @@
     "start": "nx serve",
     "start:api": "yarn start --project=api",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "test:api": "nx test --project=api --watch"
   },
   "private": true,
   "dependencies": {

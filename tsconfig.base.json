@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@jan-fullstack/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@jan-fullstack/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@jan-fullstack/core-data": ["libs/core-data/src/index.ts"],
+      "@jan-fullstack/material": ["libs/material/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

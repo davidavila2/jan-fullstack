@@ -6,12 +6,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import * as fromTodos from './todo/todos.reducer';
 import { TodosEffects } from './todo/todos.effects';
 import { TodosFacade } from './todo/todos.facade';
-import { DataPersistence, NxModule } from '@nrwl/angular';
+import { DataPersistence } from '@nrwl/angular';
 
 @NgModule({
   imports: [
     CommonModule,
-    NxModule.forRoot(),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([TodosEffects]),
     StoreModule.forFeature(fromTodos.TODOS_FEATURE_KEY, fromTodos.reducer),

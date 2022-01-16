@@ -1,27 +1,96 @@
 import { Injectable } from '@angular/core';
+import { Todo } from '@jan-fullstack/api-interfaces'
+import { TodoService } from '@jan-fullstack/core-data';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { fetch } from '@nrwl/angular';
+import { fetch, pessimisticUpdate } from '@nrwl/angular';
+import { map, tap } from 'rxjs';
 
 import * as TodosActions from './todos.actions';
-import * as TodosFeature from './todos.reducer';
 
 @Injectable()
 export class TodosEffects {
-  init$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(TodosActions.init),
-      fetch({
-        run: (action) => {
-          // Your custom service 'load' logic goes here. For now just return a success action...
-          return TodosActions.loadTodosSuccess({ todos: [] });
-        },
-        onError: (action, error) => {
-          console.error('Error', error);
-          return TodosActions.loadTodosFailure({ error });
-        },
-      })
-    )
-  );
+  loadTodo$ = createEffect(() => this.actions$.pipe(
+    ofType(TodosActions.loadTodo),
+    fetch({
+      run: (action) => {
+        console.log('I should be calling the service now');
+        return this.todoService
+          .getOneTodo(action.todoId)
+          .pipe(
+            tap((Todo) => console.log(Todo, 'made it past the first action')),
+            map((todo: Todo) =>
+              TodosActions.loadTodoSuccess({ todo })
+            )
+          )
+      },
+      onError: (action, error) => console.log(error)
+    })
+  ));
 
-  constructor(private readonly actions$: Actions) {}
+  selectTodo$ = createEffect(() => this.actions$.pipe(
+    ofType(TodosActions.selectTodo),
+    fetch({
+      run: (action) => this.todoService
+        .getOneTodo(action.selectedId).pipe(
+          map((todo: Todo) => TodosActions.TodoSelected({ todo }))
+        ),
+      onError: (action, error) => console.log(error)
+    })
+  ))
+
+  loadTodos$ = createEffect(() => this.actions$.pipe(
+    ofType(TodosActions.loadTodos),
+    fetch({
+      run: () =>
+        this.todoService
+          .getAllTodos()
+          .pipe(
+            map((todos: Todo[]) =>
+              TodosActions.loadTodosSuccess({ todos })
+            )
+          ),
+      onError: (action, error) => console.log(error)
+    })
+  ));
+
+  createTodo$ = createEffect(() => this.actions$.pipe(
+    ofType(TodosActions.createTodo),
+    pessimisticUpdate({
+      run: (action) => this.todoService.createTodo(action.todo).pipe(
+        map((todo: Todo) =>
+          TodosActions.createTodoSuccess({ todo })
+        )
+      ),
+      onError: (action, error) => console.log(error)
+    })
+  ));
+
+  updateTodo$ = createEffect(() => this.actions$.pipe(
+    ofType(TodosActions.updateTodo),
+    pessimisticUpdate({
+      run: (action) => this.todoService.updateTodo(action.todo).pipe(
+        map((todo: Todo) =>
+          TodosActions.updateTodoSuccess({ todo })
+        )
+      ),
+      onError: (action, error) => console.log(error)
+    })
+  ));
+
+  deleteTodo$ = createEffect(() => this.actions$.pipe(
+    ofType(TodosActions.deleteTodo),
+    pessimisticUpdate({
+      run: (action) => this.todoService.deleteTodo(action.todo).pipe(
+        map((todo: Todo) =>
+          TodosActions.deleteTodoSuccess({ todo })
+        )
+      ),
+      onError: (action, error) => console.log(error)
+    })
+  ));
+
+  constructor(
+    private actions$: Actions,
+    private todoService: TodoService
+  ) { }
 }

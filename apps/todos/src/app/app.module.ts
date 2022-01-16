@@ -9,6 +9,8 @@ import { TodosListComponent } from './todos/todos-list/todos-list.component';
 import { TodoDetailsComponent } from './todos/todo-details/todo-details.component';
 import { TodoItemComponent } from './todos/todo-item/todo-item.component';
 import { AppRoutingModule } from './app-routing.module';
+import { MaterialModule } from '@jan-fullstack/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     CoreDataModule,
     CoreStateModule,
-    AppRoutingModule
+    MaterialModule,
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

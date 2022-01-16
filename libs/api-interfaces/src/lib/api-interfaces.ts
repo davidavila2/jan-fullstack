@@ -47,3 +47,7 @@ export const mockTodos: Todo[] = [
     status: 'mock status2'
   }
 ];
+
+export interface Message {
+  message: string;
+}

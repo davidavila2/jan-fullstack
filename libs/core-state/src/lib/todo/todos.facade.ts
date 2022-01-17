@@ -15,7 +15,7 @@ export class TodosFacade {
    */
   loaded$ = this.store.pipe(select(TodosSelectors.getTodosLoaded));
   allTodos$ = this.store.pipe(select(TodosSelectors.getAllTodos));
-  selectedTodos$ = this.store.pipe(select(TodosSelectors.getSelected));
+  selectedTodo$ = this.store.pipe(select(TodosSelectors.getSelected));
   mutations$ = this.actions$.pipe(
     filter(
       (action: Action) =>
@@ -35,31 +35,31 @@ export class TodosFacade {
    * Use the initialization action to perform one
    * or more tasks in your Effects.
    */
-  selectTodo(selectedId: string) {
+  selectTodo(selectedId: string): void {
     this.dispatch(TodosActions.selectTodo({ selectedId }));
-  }
+  };
 
-  loadTodos() {
+  loadTodos(): void {
     this.dispatch(TodosActions.loadTodos());
-  }
+  };
 
-  loadTodo(todoId: string) {
+  loadTodo(todoId: string): void {
     this.dispatch(TodosActions.loadTodo({ todoId }));
-  }
+  };
 
-  createTodo(todo: Todo) {
+  createTodo(todo: Todo): void {
     this.dispatch(TodosActions.createTodo({ todo }));
-  }
+  };
 
-  updateTodo(todo: Todo) {
+  updateTodo(todo: Todo): void {
     this.dispatch(TodosActions.updateTodo({ todo }));
-  }
+  };
 
-  deleteTodo(todo: Todo) {
+  deleteTodo(todo: Todo): void {
     this.dispatch(TodosActions.deleteTodo({ todo }));
-  }
+  };
 
-  dispatch(action: Action) {
+  dispatch(action: Action): void {
     this.store.dispatch(action);
-  }
+  };
 }

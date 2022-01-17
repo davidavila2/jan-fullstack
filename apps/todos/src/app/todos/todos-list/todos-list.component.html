@@ -1,1 +1,25 @@
-<p>todos-list works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h1>Todos</h1>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let todo of todos" (click)="selected.emit(todo)">
+        <h3 mat-line class="todo">
+          {{todo.title}}
+        </h3>
+        <p mat-line>
+          {{todo.description}}
+        </p>
+        <button class="delete" mat-icon-button (click)="deleted.emit(todo);$event.stopImmediatePropagation()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <button class="reroute" mat-icon-button (click)="$event.stopImmediatePropagation()" [routerLink]="todo.id">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

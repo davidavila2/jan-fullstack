@@ -11,6 +11,7 @@ import { TodoItemComponent } from './todos/todo-item/todo-item.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from '@jan-fullstack/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
     CoreDataModule,
     CoreStateModule,
     MaterialModule,

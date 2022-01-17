@@ -3,7 +3,7 @@ import { Todo } from '@jan-fullstack/api-interfaces'
 import { TodoService } from '@jan-fullstack/core-data';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { fetch, pessimisticUpdate } from '@nrwl/angular';
-import { map, tap } from 'rxjs';
+import { map } from 'rxjs';
 
 import * as TodosActions from './todos.actions';
 
@@ -13,11 +13,9 @@ export class TodosEffects {
     ofType(TodosActions.loadTodo),
     fetch({
       run: (action) => {
-        console.log('I should be calling the service now');
         return this.todoService
           .getOneTodo(action.todoId)
           .pipe(
-            tap((Todo) => console.log(Todo, 'made it past the first action')),
             map((todo: Todo) =>
               TodosActions.loadTodoSuccess({ todo })
             )
@@ -26,17 +24,6 @@ export class TodosEffects {
       onError: (action, error) => console.log(error)
     })
   ));
-
-  selectTodo$ = createEffect(() => this.actions$.pipe(
-    ofType(TodosActions.selectTodo),
-    fetch({
-      run: (action) => this.todoService
-        .getOneTodo(action.selectedId).pipe(
-          map((todo: Todo) => TodosActions.TodoSelected({ todo }))
-        ),
-      onError: (action, error) => console.log(error)
-    })
-  ))
 
   loadTodos$ = createEffect(() => this.actions$.pipe(
     ofType(TodosActions.loadTodos),
@@ -57,8 +44,7 @@ export class TodosEffects {
     ofType(TodosActions.createTodo),
     pessimisticUpdate({
       run: (action) => this.todoService.createTodo(action.todo).pipe(
-        map((todo: Todo) =>
-          TodosActions.createTodoSuccess({ todo })
+        map((todo: Todo) => TodosActions.createTodoSuccess({ todo })
         )
       ),
       onError: (action, error) => console.log(error)
@@ -69,8 +55,7 @@ export class TodosEffects {
     ofType(TodosActions.updateTodo),
     pessimisticUpdate({
       run: (action) => this.todoService.updateTodo(action.todo).pipe(
-        map((todo: Todo) =>
-          TodosActions.updateTodoSuccess({ todo })
+        map((todo: Todo) => TodosActions.updateTodoSuccess({ todo })
         )
       ),
       onError: (action, error) => console.log(error)
@@ -81,8 +66,7 @@ export class TodosEffects {
     ofType(TodosActions.deleteTodo),
     pessimisticUpdate({
       run: (action) => this.todoService.deleteTodo(action.todo).pipe(
-        map((todo: Todo) =>
-          TodosActions.deleteTodoSuccess({ todo })
+        map((todo: Todo) => TodosActions.deleteTodoSuccess({ todo })
         )
       ),
       onError: (action, error) => console.log(error)

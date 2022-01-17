@@ -1,1 +1,12 @@
-<p>todos works!</p>
+<div class="container">
+  <div class="col-50">
+    <jan-fullstack-todos-list [todos]="todos$ | async" (selected)="selectTodo($event)" (deleted)="delete($event)">
+    </jan-fullstack-todos-list>
+  </div>
+
+  <div class="col-50">
+    <jan-fullstack-todo-details [form]="form" [todo]="selectedTodo$ | async" (saved)="save($event)"
+      (cancelled)="resetTodos()">
+    </jan-fullstack-todo-details>
+  </div>
+</div>

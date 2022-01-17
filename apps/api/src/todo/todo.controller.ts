@@ -6,7 +6,7 @@ import { TodoService } from './todo.service';
 export class TodoController {
   constructor(private readonly todoService: TodoService) { }
 
-  @Get(':id')
+  @Get('/:id')
   findOne(@Param('id') id: string): Promise<Todo> {
     return this.todoService.findOne(id);
   }
@@ -21,13 +21,13 @@ export class TodoController {
     return this.todoService.create(todo);
   }
 
-  @Patch(':id')
+  @Patch('/:id')
   update(@Param('id') id: string, @Body() todo: Todo): Promise<Todo> {
     return this.todoService.update(id, todo);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
+  @Delete('/:id')
+  remove(@Param('id') id: string): Promise<Todo> {
     return this.todoService.remove(id);
   }
 }

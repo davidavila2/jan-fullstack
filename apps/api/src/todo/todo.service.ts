@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
@@ -11,16 +11,17 @@ import { Todo } from './entities/todo.entity';
 export class TodoService {
   constructor(@InjectRepository(Todo) private todo: Repository<Todo>) { }
 
-  findOne(id: string): Promise<Todo> {
-    return this.todo.findOne(id);
+  async findOne(id: string): Promise<Todo> {
+    return await this.todo.findOne(id);
   }
 
-  findAll(): Promise<Todo[]> {
-    return this.todo.find();
+  async findAll(): Promise<Todo[]> {
+    return await this.todo.find();
   }
 
-  create(todo: Todo): Promise<Todo> {
-    return this.todo.save((todo.id = uuidv4(), todo));
+  async create(todo: Todo): Promise<Todo> {
+    await this.todo.save((todo.id = uuidv4(), todo));
+    return todo
   }
 
   async update(id: string, todo: Todo): Promise<Todo> {
@@ -29,7 +30,9 @@ export class TodoService {
     return todo;
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: string): Promise<Todo> {
+    const todo = this.todo.findOne(id);
     await this.todo.delete(id);
+    return todo
   }
 }

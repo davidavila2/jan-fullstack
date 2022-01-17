@@ -38,30 +38,30 @@ describe('TodoService', () => {
   });
 
   describe('#findOne', () => {
-    it('should find one todo', () => {
+    it('should find one todo', async () => {
       todoRepository.findOne.mockReturnValue(mockTodo);
 
-      const todo: Promise<Todo> = service.findOne(mockTodo.id);
+      const todo = await service.findOne(mockTodo.id);
 
       expect(todo).toStrictEqual<Todo>(mockTodo);
     });
   });
 
   describe('#findAll', () => {
-    it('should get all todos', () => {
+    it('should get all todos', async () => {
       todoRepository.find.mockReturnValue(mockTodos);
 
-      const todos: Promise<Todo[]> = service.findAll();
+      const todos = await service.findAll();
 
       expect(todos).toStrictEqual<Todo[]>(mockTodos)
     });
   });
 
   describe('#create', () => {
-    it('should create a todo', () => {
+    it('should create a todo', async () => {
       todoRepository.save.mockReturnValue(mockTodo);
 
-      const todo: Promise<Todo> = service.create(mockTodo);
+      const todo = await service.create(mockTodo);
 
       expect(todo).toStrictEqual<Todo>(mockTodo);
     });

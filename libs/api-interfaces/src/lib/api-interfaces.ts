@@ -6,10 +6,10 @@ export interface Todo {
 };
 
 export const emptyTodo = {
-  id: null,
+  id: '',
   title: '',
   description: '',
-  status: null
+  status: ''
 };
 
 export const STATUS = [
@@ -25,6 +25,13 @@ export const mockTodo: Todo = {
   description: 'mock description',
   status: 'mock status'
 };
+
+export const formReset: Todo = {
+  id: '',
+  title: '',
+  description: '',
+  status: ''
+}
 
 export const updatedMockTodo: Todo = {
   id: 'updated mockId',

@@ -2,7 +2,7 @@
 
 ## Starting the application
 
-Before starting the api, make sure you have postgres open. You can find the Todo-table.sql in the root of the directory which you can use to quickly create a table in postgress.
+Before starting the api, make sure you have postgres open. You can find the Todo-table.sql in the root of the directory which you can use to quickly create a table in postgres.
 
 Below are our core scripts for starting the applicaion and api:
 

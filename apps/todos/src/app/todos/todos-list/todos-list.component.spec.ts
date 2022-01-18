@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from "@angular/router/testing";
-import { mockTodos, Todo } from '@jan-fullstack/api-interfaces';
+import { mockTodo, mockTodos, Todo } from '@jan-fullstack/api-interfaces';
 import { MaterialModule } from '@jan-fullstack/material';
 
 import { TodosListComponent } from './todos-list.component';
@@ -41,6 +41,24 @@ describe('TodosListComponent', () => {
 
     it('should describe todos', () => {
       expect(component.todos).toEqual<Todo[]>(mockTodos);
+    });
+  });
+
+  describe('outputs', () => {
+    it('should test selected', () => {
+      component.selected.emit(mockTodo);
+
+      component.selected.subscribe((todo: Todo) => {
+        expect(todo).toEqual<Todo>(mockTodo);
+      });
+    });
+
+    it('should test deleted', () => {
+      component.deleted.emit(mockTodo);
+
+      component.deleted.subscribe((todo: Todo) => {
+        expect(todo).toEqual<Todo>(mockTodo);
+      });
     });
   });
 });

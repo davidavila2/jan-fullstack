@@ -1,10 +1,39 @@
-
-
 # JanFullstack
 
-This project was generated using [Nx](https://nx.dev).
+## Starting the application
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+Before starting the api, make sure you have postgres open. You can find the Todo-table.sql in the root of the directory which you can use to quickly create a table in postgress.
+
+Below are our core scripts for starting the applicaion and api:
+
+- First you want to install dependencies
+  - `Yarn`
+- [Front-End] (Angular)
+  - `yarn start`
+- [API] (NestJs)
+  - `yarn start:api`
+
+## This Project is unit tested and E2E tested
+
+Below are our core scripts for testing:
+
+- [Front-End] (Angular)
+  - `yarn test`
+- [API] (NestJs)
+  - `yarn test:api`
+- [E2E] (Cypress)
+  - `yarn e2e`
+
+## Tech Stack
+
+- [Front-End] (Angular)
+- [API] (NestJs)
+- [E2E] (Cypress)
+- [Unit-Testing] (Jest)
+- [State-Management] (NGRX)
+- [UI] (Angular Material)
+
+This project was generated using [Nx](https://nx.dev).
 
 🔎 **Smart, Extensible Build Framework**
 
@@ -57,7 +86,7 @@ Libraries are shareable across libraries and applications. They can be imported 
 
 ## Development server
 
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `ng serve my-app` for a dev server. Navigate to <http://localhost:4200/>. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
@@ -87,16 +116,9 @@ Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 
 Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
 
-
-
-
-
-
 ## ☁ Nx Cloud
 
 ### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
 
 Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
 
